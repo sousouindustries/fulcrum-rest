@@ -1,5 +1,5 @@
 # -*- mode: ruby -*-
-# vi: set ft=ruby :
+# vi: set ft=ruby ts=2 sw=2:
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
@@ -21,9 +21,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # config.vm.network :forwarded_port, guest: 80, host: 8080
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network :private_network, ip: "192.168.33.10"
+  config.vm.network :private_network, ip: "192.168.33.10" # Fulcrum API
+  config.vm.network :private_network, ip: "192.168.33.11" # WebUI and API
+  config.vm.network :private_network, ip: "192.168.33.12" # ESB
+  config.vm.network :private_network, ip: "192.168.33.13" # Message broker
+  config.vm.network :private_network, ip: "192.168.33.14" # PostgreSQL database
+  config.vm.network :private_network, ip: "192.168.33.15" # Origin
+
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
