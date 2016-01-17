@@ -1,0 +1,5 @@
+# This file contains all development dependencies that are not provided
+# file the Sovereign system.
+marshmallow
+coverage
+nose
