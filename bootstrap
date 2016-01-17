@@ -22,16 +22,17 @@ REPOSITORIES = [
 
 
 if __name__ == '__main__':
-
-
     threads = []
+    src_dir = join(BASE_DIR, 'src')
+
+    os.makedirs(src_dir, exist_ok=True)
     for repository in REPOSITORIES:
         url = repository['url']
         name = repository.get('name')
         if name is None:
             name = url.rsplit('/')[-1]
 
-        dst = join(BASE_DIR, 'src', name)
+        dst = join(src_dir, name)
         if not os.path.exists(dst):
             print("Cloning to", dst)
             f = lambda: os.system("cd src && git clone " + url)
