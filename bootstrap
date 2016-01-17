@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+from os.path import abspath
+from os.path import dirname
+from os.path import join
+import os
+import sys
+import threading
+
+
+BASE_DIR = abspath(join(dirname(__file__)))
+os.chdir(BASE_DIR)
+
+REPOSITORIES = [
+    {'url': "git@github.com:sousouindustries/python-es"},
+    {'url': "git@github.com:sousouindustries/python-eda"},
+]
+
+
+if __name__ == '__main__':
+
+
+    threads = []
+    for repository in REPOSITORIES:
+        url = repository['url']
+        name = repository.get('name')
+        if name is None:
+            name = url.rsplit('/')[-1]
+
+        dst = join(BASE_DIR, 'src', name)
+        if not os.path.exists(dst):
+            print("Cloning to", dst)
+            f = lambda: os.system("cd src && git clone " + url)
+        else:
+            print("Updating", url)
+            f = lambda: os.system("cd {0} && git pull".format(dst))
+        threads.append(threading.Thread(target=f))
+        threads[-1].start()
+
+    # Wait until all threads are finished.
+    while threads:
+        t = threads.pop(0)
+        t.join()
