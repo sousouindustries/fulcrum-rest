@@ -11,6 +11,7 @@ BASE_DIR = abspath(join(dirname(__file__)))
 os.chdir(BASE_DIR)
 
 REPOSITORIES = [
+    {'url': "git@github.com:sousouindustries/python-stomp"},
     {'url': "git@github.com:sousouindustries/python-es"},
     {'url': "git@github.com:sousouindustries/python-eda"},
     {'url': "git@github.com:sousouindustries/python-libsousou"},
