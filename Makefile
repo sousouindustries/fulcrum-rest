@@ -15,6 +15,8 @@ install-vm-deps:
 
 
 links:
+	cd src/python-stomp; $(MAKE) links
+	cd src/python-s42; $(MAKE) links
 	cd src/python-es; $(MAKE) links
 	cd src/python-eda; $(MAKE) links
 	cd src/python-libsousou; $(MAKE) links
