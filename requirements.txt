@@ -3,3 +3,4 @@
 marshmallow
 coverage
 nose
+sousou.ioc
