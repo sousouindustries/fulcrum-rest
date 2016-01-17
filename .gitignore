@@ -1,6 +1,7 @@
 # Misc
 *.swp # vi swap files
 src/*
+.vagrant
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
