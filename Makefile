@@ -30,8 +30,9 @@ devenv:
 	rm -f /etc/nginx/sites-enabled/default
 	apt-get autoremove -y sovereign* || echo "No sovereign packages installed."
 	apt-get autoremove -y fulcrum* || echo "No fulcrum packages installed."
-	apt-get autoremove -y aorta* || echo "No aorta packages installed."
+	apt-get autoremove -y aorta* --purge || echo "No aorta packages installed."
 	cd $(CWD)/src/sovereign-infra-common; make devpackage
+	cd $(CWD)/src/aorta-server; make devpackage
 	make links
 	@echo "Installing Reprepro"
 	rm -rf /etc/nginx/sites-enabled/default
@@ -49,7 +50,7 @@ devenv:
 	rm -f $(CWD)/src/*.changes
 	service nginx start
 	service nginx reload
+	@apt-get clean
 	@apt-get update > /dev/null
-	apt-get install --allow-unauthenticated -y\
-		sovereign-infra-common
-	@apt-get update > /dev/null
+	apt-get install -y --allow-unauthenticated\
+		aorta-server

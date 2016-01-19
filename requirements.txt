@@ -5,3 +5,4 @@ coverage
 nose
 sousou.ioc
 python-qpid-proton
+alembic
