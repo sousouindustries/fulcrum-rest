@@ -10,7 +10,7 @@ install-development-deps:
 
 
 install-vm-deps:
-	apt-get install -y python3-pip debhelper devscripts reprepro nginx
+	apt-get install -y python3-pip debhelper devscripts reprepro nginx libpq-dev
 	pip3 install -r requirements.txt
 
 
@@ -30,9 +30,10 @@ devenv:
 	rm -f /etc/nginx/sites-enabled/default
 	apt-get autoremove -y sovereign* || echo "No sovereign packages installed."
 	apt-get autoremove -y fulcrum* || echo "No fulcrum packages installed."
-	apt-get autoremove -y aorta* --purge || echo "No aorta packages installed."
+	apt-get autoremove -y aorta* || echo "No aorta packages installed."
 	cd $(CWD)/src/sovereign-infra-common; make devpackage
 	cd $(CWD)/src/aorta-server; make devpackage
+	cd $(CWD)/src/fulcrum-mds; make devpackage
 	make links
 	@echo "Installing Reprepro"
 	rm -rf /etc/nginx/sites-enabled/default
@@ -53,4 +54,8 @@ devenv:
 	@apt-get clean
 	@apt-get update > /dev/null
 	apt-get install -y --allow-unauthenticated\
-		aorta-server
+		sovereign-infra-common
+	@apt-get update > /dev/null
+	apt-get install -y --allow-unauthenticated\
+		aorta-server fulcrum-mds
+	sudo -u postgres createuser --superuser vagrant

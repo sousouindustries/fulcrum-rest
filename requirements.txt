@@ -6,3 +6,4 @@ nose
 sousou.ioc
 python-qpid-proton
 alembic
+psycopg2
