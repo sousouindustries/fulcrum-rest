@@ -10,7 +10,7 @@ install-development-deps:
 
 
 install-vm-deps:
-	apt-get install -y python3-pip debhelper devscripts reprepro nginx libpq-dev
+	apt-get install -y python3-pip debhelper devscripts reprepro nginx libpq-dev libyaml-dev
 	pip3 install -r requirements.txt
 
 
@@ -33,6 +33,7 @@ devenv:
 	apt-get autoremove -y aorta* || echo "No aorta packages installed."
 	cd $(CWD)/src/sovereign-infra-common; make devpackage
 	cd $(CWD)/src/aorta-server; make devpackage
+	cd $(CWD)/src/fulcrum-common; make devpackage
 	cd $(CWD)/src/fulcrum-mds; make devpackage
 	make links
 	@echo "Installing Reprepro"

@@ -17,6 +17,8 @@ REPOSITORIES = [
     {'url': "git@github.com:sousouindustries/python-eda"},
     {'url': "git@github.com:sousouindustries/python-libsousou"},
     {'url': "git@github.com:sousouindustries/python-libsovereign"},
+    {'url': "git@bitbucket.org:sousouindustries/fulcrum-common"},
+    {'url': "git@bitbucket.org:sousouindustries/fulcrum-mds"},
     {'url': "git@bitbucket.org:sousouindustries/fulcrum"},
     {'url': "git@github.com:sousouindustries/sovereign-infra-common"},
 ]
