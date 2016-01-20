@@ -11,14 +11,18 @@ BASE_DIR = abspath(join(dirname(__file__)))
 os.chdir(BASE_DIR)
 
 REPOSITORIES = [
+    {'url': "git@bitbucket.org:sousouindustries/sovereign-charter"},
     {'url': "git@github.com:sousouindustries/python-s42"},
     {'url': "git@github.com:sousouindustries/python-stomp"},
     {'url': "git@github.com:sousouindustries/python-es"},
     {'url': "git@github.com:sousouindustries/python-eda"},
     {'url': "git@github.com:sousouindustries/python-libsousou"},
     {'url': "git@github.com:sousouindustries/python-libsovereign"},
-    {'url': "git@bitbucket.org:sousouindustries/fulcrum-common"},
-    {'url': "git@bitbucket.org:sousouindustries/fulcrum-mds"},
+    {'url': "git@github.com:sousouindustries/fulcrum-common"},
+    {'url': "git@github.com:sousouindustries/fulcrum-mds"},
+    {'url': "git@github.com:sousouindustries/fulcrum-rest"},
+    {'url': "git@github.com:sousouindustries/aorta-common"},
+    {'url': "git@github.com:sousouindustries/aorta-server"},
     {'url': "git@bitbucket.org:sousouindustries/fulcrum"},
     {'url': "git@github.com:sousouindustries/sovereign-infra-common"},
 ]
@@ -41,7 +45,7 @@ if __name__ == '__main__':
             f = lambda: os.system("cd src && git clone " + url)
         else:
             print("Updating", url)
-            f = lambda: os.system("cd {0} && git pull".format(dst))
+            f = lambda: os.system("cd {0} && git pull origin master".format(dst))
         threads.append(threading.Thread(target=f))
         threads[-1].start()
 
