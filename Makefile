@@ -18,6 +18,49 @@ platform:
 	apt-get update
 
 
+reprepro:
+	@echo "Installing Reprepro"
+	@sudo apt-get install -y reprepro
+	rm -rf /var/repositories &&\
+		mkdir -p /var/repositories/conf -p &&\
+		cd /var/repositories/conf; touch options &&\
+		cp /vagrant/conf/reprepro/distributions . &&\
+		echo "deb [arch=amd64] file:///var/repositories trusty main" > /etc/apt/sources.list.d/apt_devenv.list;
+
+
+# Creates the build dependencies
+build-deps:
+	apt-get install -y debhelper devscripts dh-make git
+
+
+packages:
+	make build-deps
+	make reprepro
+	cd $(CWD)/src/aorta-server; make devpackage
+	cd $(CWD)/src/fulcrum-common; make devpackage
+	cd $(CWD)/src/fulcrum-mds; make devpackage
+	reprepro -b /var/repositories includedeb trusty /vagrant/src/*.deb
+	rm -f $(CWD)/src/*.deb
+	rm -f $(CWD)/src/*.dsc
+	rm -f $(CWD)/src/*.changes
+	sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/apt_devenv.list" \
+	    -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+
+
+
+environment:
+	sudo -u vagrant cp $(CWD)/conf/vim/vim.conf /home/vagrant/.vimrc
+	make platform
+	make packages
+	make infrastructure
+
+
+infrastructure:
+	apt-get install -y --allow-unauthenticated\
+		fulcrum-mds\
+		aorta-server
+
+# Obs
 install-development-deps:
 	apt-get install ansible
 
@@ -59,37 +102,7 @@ purge:
 	@apt-get -qq remove -y aorta* --purge 2>/dev/null || echo "No Fulcrum packages installed."
 
 
-build-deps:
-	apt-get install -y debhelper devscripts dh-make git
-
-
 devpackages:
-	make build-deps
-	@sudo apt-get -qq remove python3-gunicorn python3-alembic 2>/dev/null || echo "OK"
-	cd $(CWD)/src/python3-gunicorn; make devpackage
-	cd $(CWD)/src/python3-alembic; make devpackage
-	#cd $(CWD)/src/sovereign-infra-common; make devpackage
-	#cd $(CWD)/src/aorts-common; make devpackage
-	cd $(CWD)/src/aorta-server; make devpackage
-	cd $(CWD)/src/fulcrum-common; make devpackage
-	cd $(CWD)/src/fulcrum-mds; make devpackage
-	#cd $(CWD)/src/fulcrum-rest; make devpackage
-	reprepro -b /var/repositories includedeb trusty /vagrant/src/*.deb
-	rm -f $(CWD)/src/*.deb
-	rm -f $(CWD)/src/*.dsc
-	rm -f $(CWD)/src/*.changes
-	sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/apt_devenv.list" \
-	    -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
-
-
-reprepro:
-	@echo "Installing Reprepro"
-	@sudo apt-get install -y reprepro
-	rm -rf /var/repositories;\
-		mkdir -p /var/repositories/conf -p;\
-		cd /var/repositories/conf; touch options;\
-		cp /vagrant/conf/reprepro/distributions .;\
-		echo "deb [arch=amd64] file:///var/repositories trusty main" > /etc/apt/sources.list.d/apt_devenv.list;
 
 obs:
 	make install-vm-deps
