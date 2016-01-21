@@ -1,12 +1,9 @@
 server {
     listen      192.168.33.10:80;
-    root        /var/repositories;
     access_log  off;
     error_log   off;
 
-    ## Prevent access to Reprepro's files
-    location ~ /(db|conf) {
-        deny        all;
-        return      404;
+    location / {
+        alias /vagrant/src/sovereign-charter/build/html/;
     }
 }

@@ -60,6 +60,14 @@ infrastructure:
 		fulcrum-mds\
 		aorta-server
 
+
+docs-server:
+	apt-get install -y nginx
+	rm -rf /etc/nginx/sites-enabled/default
+	cp $(CWD)/conf/nginx/reprepro /etc/nginx/sites-enabled/
+	service nginx reload
+
+
 # Obs
 install-development-deps:
 	apt-get install ansible
