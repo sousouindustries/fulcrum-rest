@@ -15,6 +15,7 @@ platform:
 	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 	gpg --keyserver keyserver.ubuntu.com --recv $(SI_KEY)
 	gpg --export --armor $(SI_KEY) | sudo apt-key add -
+	apt-get install -y python-pip python3-pip python-dev python3-dev
 	apt-get update
 
 
@@ -66,6 +67,7 @@ docs-server:
 	rm -rf /etc/nginx/sites-enabled/default
 	cp $(CWD)/conf/nginx/reprepro /etc/nginx/sites-enabled/
 	service nginx reload
+	pip install alabaster sphinx_rtd_theme --upgrade
 
 
 # Obs
