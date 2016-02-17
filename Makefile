@@ -49,6 +49,12 @@ packages:
 	    -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
 
 
+links:
+	apt-get install python3-pip
+	pip3 install -r requirements.txt
+	cd src/python-es; $(MAKE) links
+	cd src/python-eda; $(MAKE) links
+
 
 environment:
 	sudo -u vagrant cp $(CWD)/conf/vim/vim.conf /home/vagrant/.vimrc
@@ -84,15 +90,15 @@ install-platform-deps:
 	#cd /tmp; rm *.deb; wget http://nl.archive.ubuntu.com/ubuntu/pool/main/a/alembic/python3-alembic_0.8.2-2ubuntu2_all.deb; dpkg -i *.deb
 
 
-links:
-	apt-get install python3-pip
-	pip3 install -r requirements.txt
-	cd src/python-stomp; $(MAKE) links
-	cd src/python-s42; $(MAKE) links
-	cd src/python-es; $(MAKE) links
-	cd src/python-eda; $(MAKE) links
-	cd src/python-libsousou; $(MAKE) links
-	cd src/python-libsovereign; $(MAKE) links
+links1:
+	#apt-get install python3-pip
+	#pip3 install -r requirements.txt
+	#cd src/python-stomp; $(MAKE) links
+	#cd src/python-s42; $(MAKE) links
+	#cd src/python-es; $(MAKE) links
+	#cd src/python-eda; $(MAKE) links
+	#cd src/python-libsousou; $(MAKE) links
+	#cd src/python-libsovereign; $(MAKE) links
 
 
 devenv:
