@@ -40,6 +40,7 @@ packages:
 	cd $(CWD)/src/aorta-server; make devpackage
 	cd $(CWD)/src/fulcrum-common; make devpackage
 	cd $(CWD)/src/fulcrum-mds; make devpackage
+	cd $(CWD)/src/python-es; make devpackage
 	reprepro -b /var/repositories includedeb trusty /vagrant/src/*.deb
 	rm -f $(CWD)/src/*.deb
 	rm -f $(CWD)/src/*.dsc
