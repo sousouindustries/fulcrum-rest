@@ -25,6 +25,8 @@ REPOSITORIES = [
     {'url': "git@github.com:sousouindustries/aorta-server"},
     {'url': "git@bitbucket.org:sousouindustries/fulcrum"},
     {'url': "git@github.com:sousouindustries/sovereign-infra-common"},
+    {'url': "git@github.com:sousouindustries/python-aorta"},
+    {'url': "git@github.com:sousouindustries/gateway"},
 ]
 
 
